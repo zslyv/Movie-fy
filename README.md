@@ -35,7 +35,7 @@ npm i react-use
 ### Run
 - Run the command to see the page in your browser
 ```console
-npm rin dev
+npm run dev
 ```
 
 > You may also need to get an TMDB API key and put it into your .env file
