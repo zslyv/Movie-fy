@@ -1,7 +1,13 @@
 
-const Search = () => {
+const Search = ({searchTerm, setSearchTerm}) => {
   return (
-    <div className='text-white'>search</div>
+    // You should never modify the set property or you'll brak the rules of react, nor here or main app
+    <div className='search'>
+      <div>
+        {/* e -> means event */}
+        <input type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      </div>
+    </div>
   )
 }
 
