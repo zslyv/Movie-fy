@@ -2,6 +2,7 @@ import LoadingSpinner from "./components/LoadingSpinner.tsx";
 import MovieCard from "./components/MovieCard.tsx";
 import Search from "./components/Search.tsx"
 import { useState, useEffect } from "react";
+import { useDebounce } from "react-use";
 
 const API_BASE_URL = "https://api.themoviedb.org/3"
 
@@ -21,6 +22,9 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [deboundeSearchTerm, setDeboundeSearchTerm] = useState('');
+
+  useDebounce(()=> setDeboundeSearchTerm(searchTerm), 500, [searchTerm])
 
   const fetchMovies = async (query = '') => {
     // Loading
@@ -59,9 +63,9 @@ const App = () => {
   }
   // Will only be triggered by the start of the app, the empty dependency (array at the end only loads when useEffect finished)
   useEffect(()=> {
-    fetchMovies(searchTerm);
+    fetchMovies(deboundeSearchTerm);
     // Add the dependency down here to fetch new movies on search (reacall)
-  }, [searchTerm]);
+  }, [deboundeSearchTerm]);
 
   return (
     <main className="p-9">
